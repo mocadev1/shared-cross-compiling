@@ -1,6 +1,5 @@
-# new_busybox
-This busybox repo is for an Embedded Linux class homework
+# BBBB (Busybox for the Beagle Bone Black)
 
 Run it as:
 
-./new_Busybox <command> <arguments...>
+./busybox <command> <arguments...>
