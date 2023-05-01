@@ -83,11 +83,6 @@ install: $(LIBS_SO) $(LIBS_H)
 
 install-embedded: $(LIBS_SO) $(LIBS_H) $(APP_NAME)
 	@scp $(APP_NAME) $(EMBD_USER)@$(EMBD_HOST):/home/$(EMBD_USER)
-	@scp -r $(LIBS_SO) $(LIBS_H) $(EMBD_USER)@$(EMBD_HOST):/home/$(EMBD_USER)
-	@ssh $(EMBD_USER)@$(EMBD_HOST) && \
-		mv $(LIBS_SO) /usr/$(LIB_PATH) && \
-		mv $(LIBS_H) /usr/$(INC_PATH) && \
-		ldconfig
 
 
 clean:
