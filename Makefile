@@ -24,6 +24,7 @@ LIBS_SO = $(CAT_LIB_SO) $(COPY_LIB_SO) $(UNAME_LIB_SO)
 
 OBJS = main.o cat.o copy.o uname.o
 
+PIC = CAT_PIC COPY_PIC UNAME_PIC
 # Compiler options
 CROSS_COMPILE ?=
 CROSS_PRE ?=
@@ -46,7 +47,7 @@ EMBD_HOST = 192.168.7.2
 
 .PHONY: all install clean
 
-all: $(LIBS_SO) $(APP_NAME)
+all: $(PIC) $(LIBS_SO) $(APP_NAME)
 
 #position-independent code (PIC)
 CAT_PIC: $(CAT_LIB_NAME)/$(CAT_LIB_NAME).c
@@ -56,14 +57,14 @@ COPY_PIC: $(COPY_LIB_NAME)/$(COPY_LIB_NAME).c
 UNAME_PIC: $(UNAME_LIB_NAME)/$(UNAME_LIB_NAME).c
 	$(CC) -c -Wall -Werror -fpic ./uname/uname.c
 	
-# Libraries shared objects recipes
+#path/libName
 $(CAT_LIB_SO): cat.o
 	$(CC) $(CFLAGS) $(SO_FLAGS) $^ -o $@
 
-$(COPY_LIB_SO): $(COPY_LIB_NAME)/$(COPY_LIB_NAME).c
+$(COPY_LIB_SO): copy.o
 	$(CC) $(CFLAGS) $(SO_FLAGS) $^ -o $@
 
-$(UNAME_LIB_SO): $(UNAME_LIB_NAME)/$(UNAME_LIB_NAME).c
+$(UNAME_LIB_SO): uname.o
 	$(CC) $(CFLAGS) $(SO_FLAGS) $^ -o $@
 
 $(APP_NAME): $(OBJS)
