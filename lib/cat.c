@@ -2,23 +2,23 @@
 #include <stdlib.h>
 #include <string.h>
 
-int cat(int a, char **v){
+int cat(){
 
+    char str1[4096];
+    printf("\nPlease enter the name or path and name of a file to be read by cat\n");
+    scanf("%4095s", str1);
+    printf("\n");
     FILE *fp;
     char buffer[4096];
 
-    if(a > 1){
-        fp = fopen(v[a - 1],"rb");
-
+        fp = fopen(str1,"rb");
+        printf("======================================================\n");
         while (fgets(buffer, 4096, fp))
         {
-            buffer[strlen(buffer) - 1] = '\0';
-            fprintf(stdout,"%s\n",buffer);
+            buffer[strlen(buffer) - 1] = '\0';            
+            fprintf(stdout,"%s\n",buffer);            
         }
-        
+        printf("======================================================\n");
 
-    }else{
-        printf("Enter a file as a second argument\n");
-    }
     return 0;
 }
