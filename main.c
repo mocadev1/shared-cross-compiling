@@ -18,30 +18,18 @@ int main(int argc, char *argv[]) {
         printf("0. Exit\n");
         scanf("%d", &selection);
 
-<<<<<<< HEAD
-        (selection > 0) ? int failure = 0 : 0;
-
-        switch (selection) {
-            case 1:
-                failure = copy(int argc, char *argv[]);
-=======
         (selection > 0) ? failure = 0 : 0;
 
         switch (selection) {
             case 1:
                 failure = copy(argc, argv);
->>>>>>> dev-shared-cross-compiled
                 if (failure){
                     printf("Copy command failed");
                     exit(1);
                 }
                 break;
             case 2:
-<<<<<<< HEAD
-                failure = uname_command(char *argv[]);
-=======
                 failure = uname_command(argv);
->>>>>>> dev-shared-cross-compiled
                 if (failure){
                     printf("uname command failed");
                     exit(1);
@@ -64,8 +52,4 @@ int main(int argc, char *argv[]) {
     }
     
     return 0;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> dev-shared-cross-compiled
