@@ -1,4 +1,46 @@
 #include <stdio.h>
+
+// Prototypes for the module 1 exercises
+int cp();
+int uname();
+int cat();
+
+int main() {
+    int selection = -1;
+
+    while (selection != 0) {
+        printf("\n=== Module 1 ===\n");
+        printf("Select an exercise:\n");
+        printf("1. cp\n");
+        printf("2. uname\n");
+        printf("0. cat\n");
+        scanf("%d", &selection);
+
+        switch (selection) {
+            case 1:
+                exercise1(argc[]);
+                break;
+            case 2:
+                exercise2();
+                break;
+            case 3:
+                exercise3();
+                break;
+            case 0:
+                printf("Exiting...\n");
+                break;
+            default:
+                printf("Invalid selection. Please try again.\n");
+                break;
+        }
+    }
+    
+    return 0;
+}
+
+
+/*
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
@@ -21,21 +63,11 @@ int main(int argc, char *argv[]) {
         char *command_ex = NULL;
 
         if (strcmp(argv[1], "sleep") == 0) {
-            command_ex = "./alex_sleep";
-        } else if (strcmp(argv[1], "uname") == 0) {
-            command_ex = "./alex_uname";
-        } else if (strcmp(argv[1], "ls") == 0) {
-            command_ex = "./alex_ls";
+            command_ex = new_sleep();
         } else if (strcmp(argv[1], "cat") == 0) {
-            command_ex = "./alex_cat";
-        } else if (strcmp(argv[1], "lsmod") == 0) {
-            command_ex = "./alex_lsmod";
-        } else if (strcmp(argv[1], "uptime") == 0) {
-            command_ex = "./alex_uptime";
-        } else if (strcmp(argv[1], "chmod") == 0) {
-            command_ex = "./alex_chmod";
+            command_ex = new_cat();
         } else if (strcmp(argv[1], "cp") == 0) {
-            command_ex = "./alex_copy";
+            command_ex = new_copy();
         } else {
             fprintf(stderr, "Unknown command: %s\n", argv[1]);
             exit(EXIT_FAILURE);
@@ -62,3 +94,4 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+*/
