@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <sys/utsname.h>  // uname command
 
 int uname_command(int argc, char *argv[]) {
