@@ -1,4 +1,5 @@
 APP_NAME = miniBusybox
+PRJ_DIR = shared-cross-compiling
 
 LIB_PATH = lib
 INC_PATH = include
@@ -37,14 +38,26 @@ CFLAGS = -g -Wall
 SO_FLAGS = -shared -fPIC
 
 
+EMBD_USER = debian
+EMBD_HOST = 192.168.7.2
+
+
 # ======= Makefile =======
 
 .PHONY: all install clean
 
 all: $(LIBS_SO) $(APP_NAME)
 
-# 												path/libName
-$(CAT_LIB_SO): $(CAT_LIB_NAME)/$(CAT_LIB_NAME).c
+#position-independent code (PIC)
+CAT_PIC: $(CAT_LIB_NAME)/$(CAT_LIB_NAME).c
+	$(CC) -c -Wall -Werror -fpic ./cat/cat.c
+COPY_PIC: $(COPY_LIB_NAME)/$(COPY_LIB_NAME).c
+	$(CC) -c -Wall -Werror -fpic ./copy/copy.c
+UNAME_PIC: $(UNAME_LIB_NAME)/$(UNAME_LIB_NAME).c
+	$(CC) -c -Wall -Werror -fpic ./uname/uname.c
+	
+# Libraries shared objects recipes
+$(CAT_LIB_SO): cat.o
 	$(CC) $(CFLAGS) $(SO_FLAGS) $^ -o $@
 
 $(COPY_LIB_SO): $(COPY_LIB_NAME)/$(COPY_LIB_NAME).c
@@ -66,6 +79,15 @@ install: $(LIBS_SO) $(LIBS_H)
 	@cp $(LIBS_SO) /usr/$(LIB_PATH)/
 	@cp $(LIBS_H) /usr/$(INC_PATH)/
 	@ldconfig
+
+install-embedded: $(LIBS_SO) $(LIBS_H) $(APP_NAME)
+	@scp $(APP_NAME) $(EMBD_USER)@$(EMBD_HOST):/home/$(EMBD_USER)
+	@scp -r $(LIBS_SO) $(LIBS_H) $(EMBD_USER)@$(EMBD_HOST):/home/$(EMBD_USER)
+	@ssh $(EMBD_USER)@$(EMBD_HOST) && \
+		mv $(LIBS_SO) /usr/$(LIB_PATH) && \
+		mv $(LIBS_H) /usr/$(INC_PATH) \
+		ldconfig
+
 
 clean:
 	@rm -f $(OBJS) $(LIBS_SO) $(APP_NAME) 
