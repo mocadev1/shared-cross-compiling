@@ -1,6 +1,6 @@
 #include <sys/utsname.h>  // uname command
 
-int uname_command(char *arg_list[]) {
+int uname_command(int argc, char *argv[]) {
   struct utsname uname_struct;
   int return_value = uname(&uname_struct);
 
