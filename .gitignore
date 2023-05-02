@@ -2,3 +2,4 @@ minibusybox_BeltranMiguelCarlosOmar.c
 
 *.o
 *.so
+.vscode

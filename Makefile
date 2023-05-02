@@ -1,4 +1,5 @@
 APP_NAME = miniBusybox
+PRJ_DIR = shared-cross-compiling
 
 LIB_PATH = lib
 INC_PATH = include
@@ -38,6 +39,10 @@ CFLAGS = -g -Wall
 SO_FLAGS = -shared -fPIC
 
 
+EMBD_USER = debian
+EMBD_HOST = 192.168.7.2
+
+
 # ======= Makefile =======
 
 .PHONY: all install clean
@@ -75,6 +80,10 @@ install: $(LIBS_SO) $(LIBS_H)
 	@cp $(LIBS_SO) /usr/$(LIB_PATH)/
 	@cp $(LIBS_H) /usr/$(INC_PATH)/
 	@ldconfig
+
+install-embedded: $(LIBS_SO) $(LIBS_H) $(APP_NAME)
+	@scp $(APP_NAME) $(EMBD_USER)@$(EMBD_HOST):/home/$(EMBD_USER)
+
 
 clean:
 	@rm -f $(OBJS) $(LIBS_SO) $(APP_NAME) 
