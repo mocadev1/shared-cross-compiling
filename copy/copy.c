@@ -127,7 +127,7 @@ void copy_directory(char *source_path, char *destination_path) {
 
 }
 
-int main(void) {
+int copy(void) {
     int recursive = 0;
     char source_path[100];
     char destination_path[100];
