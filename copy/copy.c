@@ -132,6 +132,10 @@ int copy(void) {
     char source_path[100];
     char destination_path[100];
 
+    // Flush the input buffer
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+
     printf("Enter the source path: ");
     if (fgets(source_path, 100, stdin) == NULL) {
         fprintf(stderr, "Error: Failed to read source path\n");

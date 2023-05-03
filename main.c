@@ -1,14 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "copy/copy.h"
+#include "uname/uname.h"
+#include "cat/cat.h"
+
 
 // Prototypes for the module 1 exercises
-int copy(int argc, char *argv[]);
+int copy();
 int uname_command(char *arg_list[]);
-int cat();
+int cat(void);
 
 int main(int argc, char *argv[]) {
     int selection = -1;
-    int failure = 0;
+
     while (selection != 0) {
         printf("\n=== Module 1 ===\n");
         printf("Select an exercise:\n");
@@ -18,11 +22,11 @@ int main(int argc, char *argv[]) {
         printf("0. Exit\n");
         scanf("%d", &selection);
 
-        (selection > 0) ? failure = 0 : 0;
+        int failure = 0;
 
         switch (selection) {
             case 1:
-                failure = copy(argc, argv);
+                failure = copy();
                 if (failure){
                     printf("Copy command failed");
                     exit(1);
@@ -50,6 +54,21 @@ int main(int argc, char *argv[]) {
                 break;
         }
     }
+// Dummy funcs
+    // int copy(int argc, char *argv[]){
+    //     printf("copy function called\n");
+    //     return 0;
+    // }
+
+    // int uname_command(char *arg_list[]){
+    //     printf("uname_command function called\n");
+    //     return 0;
+    // }
+
+    // int cat(){
+    //     printf("cat function called\n");
+    //     return 0;
+    // }
     
     return 0;
 }
