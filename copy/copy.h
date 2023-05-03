@@ -3,7 +3,7 @@
 
 #define BUFFER_SIZE 1024
 
-int copy(int argc, char *argv[]);
+int copy(void);
 void copy_file(char *source_path, char *destination_path);
 void copy_directory(char *source_path, char *destination_path);
 
