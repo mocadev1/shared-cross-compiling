@@ -127,24 +127,40 @@ void copy_directory(char *source_path, char *destination_path) {
 
 }
 
-int copy(int argc, char *argv[]) {
-    // Parse the command-line arguments
+int copy(void) {
     int recursive = 0;
-    char *source_path;
-    char *destination_path;
-    if (argc == 3) {
-        source_path = argv[1];
-        destination_path = argv[2];
-    } else if (argc == 4 && strcmp(argv[1], "-r") == 0) {
-        recursive = 1;
-        source_path = argv[2];
-        destination_path = argv[3];
-    } else {
-        fprintf(stderr, "Usage: %s [-r] SOURCE DESTINATION\n", argv[0]);
+    char source_path[100];
+    char destination_path[100];
+
+    // Flush the input buffer
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    printf("Enter the source path: ");
+    if (fgets(source_path, 100, stdin) == NULL) {
+        fprintf(stderr, "Error: Failed to read source path\n");
+        exit(1);
+    }
+    source_path[strcspn(source_path, "\n")] = 0;
+
+    printf("Enter the destination path: ");
+    if (fgets(destination_path, 100, stdin) == NULL) {
+        fprintf(stderr, "Error: Failed to read destination path\n");
+        exit(1);
+    }
+    destination_path[strcspn(destination_path, "\n")] = 0;
+
+    printf("Do you want to copy recursively? (y/n) ");
+    char answer[2];
+    if (fgets(answer, 2, stdin) == NULL) {
+        fprintf(stderr, "Error: Failed to read answer\n");
         exit(1);
     }
 
-    // Copy the source to the destination
+    if (strcmp(answer, "y") == 0) {
+        recursive = 1;
+    }
+
     if (recursive) {
         copy_directory(source_path, destination_path);
     } else {
